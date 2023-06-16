@@ -1,14 +1,13 @@
 from QuestionPreProcess import QuestionParser
-from NewsSearch import SinaWebNews
+from NewsSearch import SinaWebNewsSearcher
+from GPTInterface import TemplatedChatGpt
+from SimpleNewBing import SimpleNewBing
 
-sina_web_news = SinaWebNews()
 
+if __name__ == "__main__":
+    news_searcher = SinaWebNewsSearcher()
+    question_parser = QuestionParser()
+    templated_gpt = TemplatedChatGpt()
+    new_bing = SimpleNewBing(news_searcher, question_parser, templated_gpt)
 
-while True:
-    question = input("请输入你的问题\n")
-
-    keywords = parse_question(question)
-
-    news = sina_web_news.search(keywords)
-    for new in news:
-        print(new)
+    new_bing.create_dialogue()
