@@ -6,3 +6,7 @@ HEADERS = {
 TEMPLATE_FOR_CHATGPT = "以下是网络上关于问题的一些信息：\n {} \n 这是我的问题：\n {} ,请根据网络信息与我的问题的信息综合做出回答\n"
 
 OPAI_API_KEY = "#"
+
+LLAMA_GPT_EXE_PATH = "#"
+LLAMA_GPT_MODEL_PATH = "#"
+LLAMA_ARGS = "-n 128"
