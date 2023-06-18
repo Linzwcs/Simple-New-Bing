@@ -1,8 +1,19 @@
 import spacy
+from abc import abstractmethod, ABCMeta
 
 
-class QuestionParser:
-    def __init__(self, model_name="zh_core_web_trf"):
+class QuestionParser(metaclass=ABCMeta):
+    @abstractmethod
+    def parse_question(self, question):
+        pass
+
+
+class SpacyQuestionParser(QuestionParser):
+    def __init__(self, lang="en"):
+        if lang == "en":
+            model_name = "en_core_web_trf"
+        elif lang == "zh":
+            model_name = "en_core_web_trf"
         self.nlp = spacy.load(model_name)
 
     def parse_question(self, question):
@@ -14,3 +25,11 @@ class QuestionParser:
         if key_words == []:
             key_words.append(question)
         return key_words
+
+
+class BertBilstmQuestionParser(QuestionParser):
+    def __init__(self):
+        pass
+
+    def parse_question(self, question):
+        pass
