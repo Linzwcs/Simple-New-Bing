@@ -21,12 +21,13 @@ class SimpleNewBing:
     def create_dialogue(self):
         while True:
             question = input("hello, can I help you\n")
-            # keywords = self.question_parser.parse_question(question)
-            # news_list = self.news_searcher.search(keywords)
-            news_list = self.news_searcher.search([question])
+            if self.question_parser:
+                keywords = self.question_parser.parse_question(question)
+                news_list = self.news_searcher.search(keywords)
+            else:
+                news_list = self.news_searcher.search([question])
             if self.news_sorter is not None:
                 news_list = self.news_sorter(news_list)
-
             ###########################
             if self.show_news:
                 print("-" * 5 + "here are some related news" + "-" * 5)

@@ -25,19 +25,17 @@ class StepRunner:
         self.optimizer = optimizer
 
     def step(self, features, labels):
-        # loss
         # ////////////////////////////////////////////////////////////////
         preds = self.net(**features)  # .logits
         loss = self.loss_fn(preds.view(-1, preds.size(-1)), labels.view(-1))
 
         # ////////////////////////////////////////////////////////////////
-        # backward()
+
         if self.optimizer is not None and self.stage == "train":
             loss.backward()
             self.optimizer.step()
             self.optimizer.zero_grad()
 
-        # metrics
         step_metrics = {
             self.stage
             + "_"
@@ -48,12 +46,12 @@ class StepRunner:
         return loss.item(), step_metrics
 
     def train_step(self, features, labels):
-        self.net.train()  # 训练模式, dropout层发生作用
+        self.net.train()
         return self.step(features, labels)
 
     @torch.no_grad()
     def eval_step(self, features, labels):
-        self.net.eval()  # 预测模式, dropout层不发生作用
+        self.net.eval()
         return self.step(features, labels)
 
     def __call__(self, features, labels):
@@ -114,7 +112,6 @@ def train_model(
     for epoch in range(1, epochs + 1):
         printlog("Epoch {0} / {1}".format(epoch, epochs))
 
-        # 1，train -------------------------------------------------
         train_step_runner = StepRunner(
             net=net,
             stage="train",
@@ -128,7 +125,6 @@ def train_model(
         for name, metric in train_metrics.items():
             history[name] = history.get(name, []) + [metric]
 
-        # 2，validate -------------------------------------------------
         if val_data:
             val_step_runner = StepRunner(
                 net=net,
@@ -143,7 +139,6 @@ def train_model(
             for name, metric in val_metrics.items():
                 history[name] = history.get(name, []) + [metric]
 
-        # 3，early-stopping -------------------------------------------------
         arr_scores = history[monitor]
         best_score_idx = (
             np.argmax(arr_scores) if mode == "max" else np.argmin(arr_scores)

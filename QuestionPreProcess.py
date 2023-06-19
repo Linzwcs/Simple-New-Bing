@@ -29,7 +29,7 @@ class SpacyQuestionParser(QuestionParser):
 
 class BertBilstmQuestionParser(QuestionParser):
     def __init__(self):
-        pass
+        assert None
 
     def parse_question(self, question):
-        pass
+        assert None

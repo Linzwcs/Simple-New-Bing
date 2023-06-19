@@ -38,6 +38,12 @@ parser.add_argument(
     default=True,
     help="whether to display templated question",
 )
+parser.add_argument(
+    "-U",
+    "--use_ner_model",
+    default=False,
+    help="whether to use NER model",
+)
 
 
 args = parser.parse_args()
@@ -48,12 +54,20 @@ print(f"show news: {args.show_news}")
 print(f"choose model: {args.show_templated_question}")
 
 if __name__ == "__main__":
-    language, gpt_model, show_news, show_templated_question, ner_model = (
+    (
+        language,
+        gpt_model,
+        show_news,
+        show_templated_question,
+        ner_model,
+        use_ner_model,
+    ) = (
         args.language,
         args.gpt_model,
         args.show_news,
         args.show_templated_question,
         args.ner_model,
+        args.use_ner_model,
     )
     templated_gpt, news_searcher = None, None
 
@@ -71,12 +85,13 @@ if __name__ == "__main__":
             lang=language, show_templated_question=show_templated_question
         )
 
-    if ner_model == "spacy":
-        question_parser = SpacyQuestionParser(lang=language)
+    if use_ner_model is False:
+        question_parser = None
     elif ner_model == "bert_bilstm":
         assert language == "zh"
         question_parser = BertBilstmQuestionParser()
-
+    elif ner_model == "spacy":
+        question_parser = SpacyQuestionParser(lang=language)
     new_bing = SimpleNewBing(
         news_searcher, question_parser, templated_gpt, show_news=show_news
     )
