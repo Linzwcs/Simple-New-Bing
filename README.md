@@ -7,7 +7,7 @@ Simple New Bing is a lightweight version of New Bing that emulates its functiona
 Code Author:
 
 Wang Zhilin / student ID:55211027
-![error](./imgs/systemArchitecture)
+![error](./imgs/systemArchitecture.png)
 ## Implemented Features
 
 1. Two custom crawlers have been developed to collect news from Sina Weibo and Global Times.
