@@ -2,15 +2,12 @@
 
 ## Description
 
-Simple New Bing is a lightweight version of New Bing that emulates its functionality by aggregating news from various sources on the Internet created for Lab of course Software Architecture of JLU.
+Simple New Bing is a lightweight version of New Bing that emulates its functionality by aggregating news from various sources on the Internet.
 
 Code Author:
 
-1. Wang Zhilin / student ID:55211027
-2. Cheng Pengyu / student ID:55211029
-3. Zhu Shifeng / student ID:85210132
-4. Ning Yuanyuan / student ID:55211028
-
+Wang Zhilin / student ID:55211027
+![error](./imgs/systemArchitecture)
 ## Implemented Features
 
 1. Two custom crawlers have been developed to collect news from Sina Weibo and Global Times.
